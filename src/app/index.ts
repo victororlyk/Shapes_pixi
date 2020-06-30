@@ -1,10 +1,10 @@
-import { Application } from 'pixi.js';
+import { Application, Sprite } from 'pixi.js';
 import ShapeModel from './Models/shape.model';
 
 const figures = ['circle', 'ellipse', 'rectangle', 'triangle'];
 let shapesPerSec = 1;
 let gravity = 1;
-const shapes: ShapeModel[] = [];
+const shapes: any[] = [];
 let shapesNumber = shapes.length;
 let areaOccupied = 0;
 //shapes per second
@@ -51,27 +51,35 @@ const app = new Application({
 document.getElementById('game')!.appendChild(app.view);
 
 window.setInterval(function() {
-  console.log('here 1 second');
   for (let i = 0; i < shapesPerSec; i++) {
     handleCreateShape(Math.floor(Math.random() * 600) + 1, 10);
   }
 }, 1000);
 
 function gameLoop() {
-  updateShape();
+  updateShapes();
   shapesNumber = shapes.length;
   ShapesNumberSpan!.innerHTML = shapesNumber.toString();
 }
 
 function handleCreateShape(x: number, y: number) {
   const randomIndex = Math.floor(Math.random() * (3 + 1));
-  const shape = new ShapeModel(x, y, figures[randomIndex]);
+  const shape = new ShapeModel(x, y, figures[randomIndex], Math.random().toString());
+
+  function deleteItem(this: any) {
+    app.stage.removeChild(shape);
+    const deleteIndex = shapes.findIndex((shape:ShapeModel) => shape.id === this.id)
+    shapes.splice(deleteIndex, 1);
+    handleCreateShape(this.x+20, this.y +20);
+    handleCreateShape(this.x - 20, this.y - 20);
+  }
+
+  shape.on('mousedown', deleteItem);
   app.stage.addChild(shape);
   shapes.push(shape);
-
 }
 
-function updateShape() {
+function updateShapes() {
   for (const shape of shapes) {
     shape.y += gravity;
   }
