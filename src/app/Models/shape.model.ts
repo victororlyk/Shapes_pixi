@@ -1,4 +1,5 @@
 import { Graphics } from 'pixi.js';
+import {getRandomColor} from '../utils'
 
 export default class ShapeModel extends Graphics {
   shape: string;
@@ -14,23 +15,23 @@ export default class ShapeModel extends Graphics {
     this.buttonMode = true;
     switch (this.shape) {
       case 'circle':
-        this.beginFill(0x9966FF);
+        this.beginFill(getRandomColor());
         this.drawCircle(0, 0, 32);
         this.endFill();
         break;
       case 'ellipse':
-        this.beginFill(0xFFFF00);
+        this.beginFill(getRandomColor());
         this.drawEllipse(0, 0, 50, 20);
         this.endFill();
         break;
       case 'rectangle':
-        this.lineStyle(4, 0xFF3300, 1);
-        this.beginFill(0x66CCFF);
+        this.lineStyle(4, getRandomColor(), 1);
+        this.beginFill(getRandomColor());
         this.drawRect(0, 0, 64, 64);
         this.endFill();
         break;
       case 'triangle':
-        this.beginFill(0x66FF33);
+        this.beginFill(getRandomColor());
         this.drawPolygon([
           -32, 64,
           32, 64,
