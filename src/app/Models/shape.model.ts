@@ -1,9 +1,9 @@
 import { Graphics } from 'pixi.js';
-import { getRandomColor } from '../utils';
+import { getRandomColor } from '@app/utils';
 
 class ShapeModel extends Graphics {
   id: string;
-  square: any;
+  square: number;
 
   constructor(x: number, y: number, id: string) {
     super();
@@ -16,7 +16,7 @@ class ShapeModel extends Graphics {
   }
 }
 
-export class Triangle extends ShapeModel {
+export class TriangleModel extends ShapeModel {
   constructor(x: number, y: number, id: string) {
     super(x, y, id);
     this.beginFill(getRandomColor());
@@ -30,7 +30,7 @@ export class Triangle extends ShapeModel {
   }
 }
 
-export class RectangleShape extends ShapeModel {
+export class RectangleModel extends ShapeModel {
   constructor(x: number, y: number, id: string) {
     super(x, y, id);
     this.lineStyle(4, getRandomColor(), 1);
@@ -41,7 +41,7 @@ export class RectangleShape extends ShapeModel {
   }
 }
 
-export class Circle extends ShapeModel {
+export class CircleModel extends ShapeModel {
   constructor(x: number, y: number, id: string) {
     super(x, y, id);
     this.beginFill(getRandomColor());
@@ -51,7 +51,7 @@ export class Circle extends ShapeModel {
   }
 }
 
-export class Ellipse extends ShapeModel {
+export class EllipseModel extends ShapeModel {
   constructor(x: number, y: number, id: string) {
     super(x, y, id);
     this.beginFill(getRandomColor());
@@ -61,12 +61,12 @@ export class Ellipse extends ShapeModel {
   }
 }
 
-export class Polygon extends ShapeModel {
+export class PolygonModel extends ShapeModel {
   constructor(x: number, y: number, id: string) {
     super(x, y, id);
     let size = 50,
-      Xcenter = 100,
-      Ycenter = 100,
+      Xcenter = 10,
+      Ycenter = -50,
       sides = Math.floor(Math.random() * (10 - 5 + 1) + 5);
 
     this.lineStyle(4, getRandomColor(), 1);

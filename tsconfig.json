@@ -44,14 +44,8 @@
     "baseUrl": "./",
     /* Base directory to resolve non-absolute module names. */
     "paths": {
-      "Models": [
-        "src/app/Models"
-      ],
-      "Controllers": [
-        "src/app/Controllers"
-      ],
-      "View": [
-        "src/app/View"
+      "@app/*": [
+        "src/app/*"
       ]
     },
     /* A series of entries which re-map imports to lookup locations relative to the 'baseUrl'. */

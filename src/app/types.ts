@@ -1,3 +1,3 @@
-// import { Circle, Ellipse, Polygon, RectangleShape, Triangle } from '../app/Models/shape.model.ts';
+import { CircleModel, EllipseModel, PolygonModel, RectangleModel, TriangleModel } from '@app/Models/shape.model';
 
-// export type  ShapeModels = Circle | Ellipse | Polygon | RectangleShape | Triangle
+export type  ShapeModelsType = CircleModel | EllipseModel | PolygonModel | RectangleModel | TriangleModel

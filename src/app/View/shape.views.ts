@@ -1,4 +1,6 @@
-export const shapes: any[] = [];
+import { ShapeModelsType } from '@app/types';
+
+export const shapes: ShapeModelsType[] = [];
 export let shapesPerSec = 1;
 export let gravity = 1;
 export let shapesNumber = shapes.length;
@@ -10,7 +12,7 @@ export function changeAmount(name: string, value: number, display: Element | nul
       console.log('here shapes per sec');
       shapesPerSec += value;
       display!.innerHTML = shapesPerSec.toString();
-    } else {
+    } else if (name === 'gravity') {
       console.log('here gravity');
       gravity += value;
       display!.innerHTML = gravity.toString();

@@ -1,17 +1,19 @@
-import { app } from '../index';
-import { gravity, shapes } from '@View/shape.views';
-import { Circle, Ellipse, Polygon, RectangleShape, Triangle } from '@Models/shape.model';
+import { gravity, shapes } from '@app/View/shape.views';
+import { CircleModel, EllipseModel, PolygonModel, RectangleModel, TriangleModel } from '@app/Models/shape.model';
+import { APP_HEIGHT } from '@app/constants';
+import { ShapeModelsType } from '@app/types';
+import { app } from '@app/index';
 
-export const figures = [Triangle, RectangleShape, Circle, Polygon, Ellipse];
+export const models = [TriangleModel, RectangleModel, CircleModel, PolygonModel, EllipseModel];
 
 export function handleCreateShape(x: number, y: number) {
-  const randomIndex = Math.floor(Math.random() * (figures.length));
+  const randomIndex = Math.floor(Math.random() * (models.length));
   const id = Date.now().toString();
-  const shape = new figures[randomIndex](x, y, id);
+  const shape = new models[randomIndex](x, y, id);
 
-  function deleteItem(this: any) {
+  function deleteItem(this: ShapeModelsType) {
     app.stage.removeChild(shape);
-    const deleteIndex = shapes.findIndex((shape: any) => shape.id === this.id);
+    const deleteIndex = shapes.findIndex((shape: ShapeModelsType) => shape.id === this.id);
     shapes.splice(deleteIndex, 1);
   }
 
@@ -29,7 +31,7 @@ export function updateShapes() {
   }
   const shapesLength = shapes.length;
   for (let i = 0; i <= shapesLength; i++) {
-    if (shapes[i]?.y > 600) {
+    if (shapes[i]?.y > APP_HEIGHT) {
       app.stage.removeChild(shapes[i]);
       shapes.splice(i, 1);
     }
