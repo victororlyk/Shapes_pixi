@@ -40,9 +40,34 @@ export default class ShapeModel extends Graphics {
         this.endFill();
         break;
       case 'pentagon':
+        let  size = 50,
+          Xcenter = 100,
+          Ycenter = 100,
+        sides = 5
+
+        this.lineStyle(4, getRandomColor(), 1);
+        this.moveTo(0, 0);
+
+        this.moveTo(Xcenter + size * Math.cos(0), Ycenter + size * Math.sin(0));
+
+        for (let i = 1; i <= sides; i += 1) {
+          this.lineTo(Xcenter + size * Math.cos(i * 2 * Math.PI / sides), Ycenter + size * Math.sin(i * 2 * Math.PI / sides));
+        }
         break;
-      //i think this is a lot of shapes
-      case 'Polygons':
+      case 'random':
+        let  sizeR = 50,
+          XcenterR = 25,
+          YcenterR = 25,
+          sidesR = Math.floor(Math.random() * (10 - 6 + 1) + 6);
+
+        this.lineStyle(4, getRandomColor(), 1);
+        this.moveTo(0, 0);
+
+        this.moveTo(XcenterR + sizeR * Math.cos(0), YcenterR + sizeR * Math.sin(0));
+
+        for (let i = 1; i <= sidesR; i += 1) {
+          this.lineTo(XcenterR + sizeR * Math.cos(i * 2 * Math.PI / sidesR), YcenterR + sizeR * Math.sin(i * 2 * Math.PI / sidesR));
+        }
         break;
     }
   }

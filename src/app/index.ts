@@ -1,7 +1,7 @@
 import { Application, Container, Rectangle } from 'pixi.js';
 import ShapeModel from './Models/shape.model';
 
-const figures = ['circle', 'ellipse', 'rectangle', 'triangle'];
+const figures = ['circle', 'ellipse', 'rectangle', 'triangle', 'pentagon', 'random'];
 let shapesPerSec = 1;
 let gravity = 1;
 const shapes: any[] = [];
@@ -69,7 +69,7 @@ function gameLoop() {
 }
 
 function handleCreateShape(x: number, y: number) {
-  const randomIndex = Math.floor(Math.random() * (3 + 1));
+  const randomIndex = Math.floor(Math.random() * (5 + 1));
   const shape = new ShapeModel(x, y, figures[randomIndex], Math.random().toString());
 
   function deleteItem(this: ShapeModel) {
