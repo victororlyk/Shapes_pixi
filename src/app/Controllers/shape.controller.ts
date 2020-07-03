@@ -1,10 +1,11 @@
-import { gravity, shapes } from '@app/View/shape.views';
-import { CircleModel, EllipseModel, PolygonModel, RectangleModel, TriangleModel } from '@app/Models/shape.model';
+import { gravity } from '@app/View/shape.views';
+import modelsShapes from '@app/Models/';
 import { APP_HEIGHT } from '@app/constants';
 import { ShapeModelsType } from '@app/types';
-import { app } from '@app/index';
+import ShapeModel from '@app/Models/shape.model';
 
-export const models = [TriangleModel, RectangleModel, CircleModel, PolygonModel, EllipseModel];
+
+export const models = [modelsShapes.TriangleModel, modelsShapes.RectangleModel, modelsShapes.CircleModel, modelsShapes.PolygonModel, modelsShapes.EllipseModel];
 
 export function handleCreateShape(x: number, y: number) {
   const randomIndex = Math.floor(Math.random() * (models.length));
@@ -12,28 +13,36 @@ export function handleCreateShape(x: number, y: number) {
   const shape = new models[randomIndex](x, y, id);
 
   function deleteItem(this: ShapeModelsType) {
-    app.stage.removeChild(shape);
-    const deleteIndex = shapes.findIndex((shape: ShapeModelsType) => shape.id === this.id);
-    shapes.splice(deleteIndex, 1);
+    ShapeModel.deleteInstance('byInstance', this);
+    const sameShapes = ShapeModel.instances.filter((shape: ShapeModelsType) => shape.square === this.square && shape.id !== this.id);
+    sameShapes.forEach((shape: ShapeModelsType) => {
+      const { x, y, id } = shape;
+
+      ShapeModel.deleteInstance('byInstance', shape)
+      const index = models.findIndex((shapeModel: any) => shape.constructor.name === shapeModel.name);
+      const newShape = new models[index](x, y, id);
+
+      newShape.on('mousedown', (e: MouseEvent) => {
+        e.stopPropagation();
+        deleteItem.call(newShape);
+      });
+    });
   }
 
   shape.on('mousedown', (e: MouseEvent) => {
     e.stopPropagation();
     deleteItem.call(shape);
   });
-  app.stage.addChild(shape);
-  shapes.push(shape);
 }
 
 export function updateShapes() {
-  for (const shape of shapes) {
+  for (const shape of ShapeModel.instances) {
     shape.y += gravity;
   }
-  const shapesLength = shapes.length;
+  const shapesLength = ShapeModel.instances.length;
   for (let i = 0; i <= shapesLength; i++) {
-    if (shapes[i]?.y > APP_HEIGHT) {
-      app.stage.removeChild(shapes[i]);
-      shapes.splice(i, 1);
+    if (ShapeModel.instances[i]?.y > APP_HEIGHT) {
+      ShapeModel.deleteInstance('byIndex', i);
     }
   }
 }
