@@ -1,9 +1,9 @@
 import { ShapeModelsType } from '@app/types';
+import ShapeModel from '@app/Models/shape.model';
 
-export const shapes: ShapeModelsType[] = [];
 export let shapesPerSec = 1;
 export let gravity = 1;
-export let shapesNumber = shapes.length;
+export let shapesNumber = ShapeModel.instances.length;
 export let areaOccupied = 0;
 
 export function changeAmount(name: string, value: number, display: Element | null) {
@@ -41,8 +41,8 @@ const AreaNumberSpan = document.querySelector('.info_area span');
 AreaNumberSpan!.innerHTML = areaOccupied.toString();
 
 export function updateInfo() {
-  shapesNumber = shapes.length;
+  shapesNumber = ShapeModel.instances.length;
   ShapesNumberSpan!.innerHTML = shapesNumber.toString();
-  areaOccupied = shapes.reduce((acc, shape) => acc + shape.square, 0);
+  areaOccupied = ShapeModel.instances.reduce((acc:number, shape:ShapeModelsType) => acc + shape.square, 0);
   AreaNumberSpan!.innerHTML = areaOccupied.toFixed(2).toString();
 }
