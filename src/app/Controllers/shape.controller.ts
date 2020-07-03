@@ -1,11 +1,10 @@
+import {  CircleModel, EllipseModel, PolygonModel, RectangleModel, TriangleModel} from '@app/Models/';
+import ShapeModel from '@app/Models/shape.model';
 import { gravity } from '@app/View/shape.views';
-import modelsShapes from '@app/Models/';
 import { APP_HEIGHT } from '@app/constants';
 import { ShapeModelsType } from '@app/types';
-import ShapeModel from '@app/Models/shape.model';
 
-
-export const models = [modelsShapes.TriangleModel, modelsShapes.RectangleModel, modelsShapes.CircleModel, modelsShapes.PolygonModel, modelsShapes.EllipseModel];
+export const models = [  CircleModel, EllipseModel, PolygonModel, RectangleModel, TriangleModel];
 
 export function handleCreateShape(x: number, y: number) {
   const randomIndex = Math.floor(Math.random() * (models.length));
@@ -16,12 +15,11 @@ export function handleCreateShape(x: number, y: number) {
     ShapeModel.deleteInstance('byInstance', this);
     const sameShapes = ShapeModel.instances.filter((shape: ShapeModelsType) => shape.square === this.square && shape.id !== this.id);
     sameShapes.forEach((shape: ShapeModelsType) => {
+      // deleting old shapes and creating new shapes of the same shape and same functionality
       const { x, y, id } = shape;
-
       ShapeModel.deleteInstance('byInstance', shape)
       const index = models.findIndex((shapeModel: any) => shape.constructor.name === shapeModel.name);
       const newShape = new models[index](x, y, id);
-
       newShape.on('mousedown', (e: MouseEvent) => {
         e.stopPropagation();
         deleteItem.call(newShape);
