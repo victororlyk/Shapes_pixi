@@ -1,10 +1,11 @@
 import { gravity, shapes } from '@app/View/shape.views';
-import { CircleModel, EllipseModel, PolygonModel, RectangleModel, TriangleModel } from '@app/Models/shape.model';
+import modelsShapes from '@app/Models/';
 import { APP_HEIGHT } from '@app/constants';
 import { ShapeModelsType } from '@app/types';
 import { app } from '@app/index';
 
-export const models = [TriangleModel, RectangleModel, CircleModel, PolygonModel, EllipseModel];
+
+export const models = [modelsShapes.TriangleModel, modelsShapes.RectangleModel, modelsShapes.CircleModel, modelsShapes.PolygonModel, modelsShapes.EllipseModel];
 
 export function handleCreateShape(x: number, y: number) {
   const randomIndex = Math.floor(Math.random() * (models.length));

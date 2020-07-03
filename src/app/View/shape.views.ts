@@ -9,11 +9,11 @@ export let areaOccupied = 0;
 export function changeAmount(name: string, value: number, display: Element | null) {
   return function() {
     if (name === 'shapesPerSec') {
-      console.log('here shapes per sec');
+      decreaseShapesBtn.disabled = shapesPerSec + value === 0;
       shapesPerSec += value;
       display!.innerHTML = shapesPerSec.toString();
     } else if (name === 'gravity') {
-      console.log('here gravity');
+      decreaseGravityBtn.disabled = gravity + value === 0;
       gravity += value;
       display!.innerHTML = gravity.toString();
     }
@@ -22,15 +22,15 @@ export function changeAmount(name: string, value: number, display: Element | nul
 
 const ShapesPerSecSpan = document.querySelector('.shapes_number span');
 ShapesPerSecSpan!.innerHTML = shapesPerSec.toString();
-const decreaseShapesBtn = document.querySelector('.shapes__btns--decrease');
-const increaseShapesBtn = document.querySelector('.shapes__btns--increase');
+const decreaseShapesBtn = document.querySelector('.shapes__btns--decrease') as HTMLButtonElement;
+const increaseShapesBtn = document.querySelector('.shapes__btns--increase') as HTMLButtonElement;
 decreaseShapesBtn!.addEventListener('click', changeAmount('shapesPerSec', -1, ShapesPerSecSpan));
 increaseShapesBtn!.addEventListener('click', changeAmount('shapesPerSec', 1, ShapesPerSecSpan));
 
 const GravitySpan = document.querySelector('.gravity__number span');
 GravitySpan!.innerHTML = gravity.toString();
-const decreaseGravityBtn = document.querySelector('.gravity__btns--decrease');
-const increaseGravityBtn = document.querySelector('.gravity__btns--increase');
+const decreaseGravityBtn = document.querySelector('.gravity__btns--decrease') as HTMLButtonElement;
+const increaseGravityBtn = document.querySelector('.gravity__btns--increase') as HTMLButtonElement;
 decreaseGravityBtn!.addEventListener('click', changeAmount('gravity', -1, GravitySpan));
 increaseGravityBtn!.addEventListener('click', changeAmount('gravity', 1, GravitySpan));
 
