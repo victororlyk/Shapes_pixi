@@ -1,7 +1,3 @@
-import CircleModel from '@app/Models/shape.model';
-import EllipseModel from '@app/Models/ellipse.model';
-import PolygonModel from '@app/Models/polygon.model';
-import RectangleModel from '@app/Models/rectangle.model';
-import TriangleModel from '@app/Models/triangle.model';
+import {  CircleModel, EllipseModel, PolygonModel, RectangleModel, TriangleModel} from '@app/Models/';
 
 export type  ShapeModelsType = CircleModel | EllipseModel | PolygonModel | RectangleModel | TriangleModel
